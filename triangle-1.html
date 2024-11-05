@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三角形アニメーションとロゴ表示</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f4f4f4; /* 背景色 */
+    }
+
+    .animation-container {
+      position: relative;
+      width: 720px;
+      height: 720px;
+      background-color: #fff; /* 背景色（白） */
+      overflow: hidden; /* コンテンツがはみ出さないように */
+    }
+
+    /* 青色三角形（左上隅） */
+    .triangle-background-blue {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 360px solid #499EDB;  /* 青色を設定 */
+      border-bottom: 360px solid transparent; /* 下辺は透明 */
+      top: 0;
+      left: -360px; /* 初期位置は画面外に左に設定 */
+      opacity: 0; /* 初期状態では透明 */
+      transition: left 0.5s ease, opacity 0.5s ease; /* アニメーション時間を0.5秒に設定 */
+    }
+
+    /* 緑色三角形（右下隅）: 透明部分と塗られている部分を逆に */
+    .triangle-background-green {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 360px solid transparent;  /* 左辺を透明 */
+      border-bottom: 360px solid #48DB56; /* 下辺を緑色 */
+      bottom: 0;
+      right: -360px; /* 初期位置は画面外に右に設定 */
+      opacity: 0; /* 初期状態では透明 */
+      transition: right 0.5s ease, opacity 0.5s ease; /* アニメーション時間を0.5秒に設定 */
+    }
+
+    /* ロゴ */
+    .logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* 中央に配置 */
+      font-family: 'Bodoni MT', serif; /* フォント */
+      font-size: 124px; /* フォントサイズ */
+      color: navy; /* ロゴの色 */
+      opacity: 0;
+      transition: opacity 1s ease; /* フェードインのアニメーション */
+    }
+
+    /* アニメーションが適用された状態 */
+    .animation-container.animate .triangle-background-blue {
+      left: 0; /* 左から移動して0に */
+      opacity: 1; /* 透明度が1になり、表示される */
+    }
+
+    .animation-container.animate .triangle-background-green {
+      right: 0; /* 右から移動して0に */
+      opacity: 1; /* 透明度が1になり、表示される */
+    }
+
+    .animation-container.animate .logo {
+      opacity: 1; /* アニメーション後、ロゴを表示 */
+    }
+  </style>
+</head>
+<body>
+  <div class="animation-container">
+    <!-- 青色の三角形 -->
+    <div class="triangle-background-blue"></div>
+    <!-- 緑色の三角形 -->
+    <div class="triangle-background-green"></div>
+    <!-- ロゴ -->
+    <div class="logo">F+</div>
+  </div>
+
+  <script>
+    window.onload = () => {
+      const container = document.querySelector('.animation-container');
+      
+      // ページ読み込み後、1秒後に三角形のアニメーション開始
+      setTimeout(() => {
+        container.classList.add('animate');
+      }, 1000); // 1秒後にアニメーション開始
+
+      // 2.5秒後にロゴをフェードイン
+      setTimeout(() => {
+        container.querySelector('.logo').style.opacity = 1; // フェードイン
+      }, 4000); // 2.5秒後にロゴを表示
+    };
+  </script>
+</body>
+</html>
