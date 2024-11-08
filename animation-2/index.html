@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>動画とオーバーレイPNG</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #EEEEEE;
+        }
+
+        .video-container {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 動画を画面に合わせて伸縮 */
+            filter: blur(5px); /* ぼかしと明るさを調整 */
+        }
+
+        .overlay {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%); /* 画像の上下を中央に */
+            pointer-events: none; /* PNGの上でのクリックを無効化 */
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <!-- 動画を埋め込む -->
+        <video autoplay loop muted playsinline>
+            <source src="./video.mp4" type="video/mp4">
+            お使いのブラウザは動画タグに対応していません。
+        </video>
+
+        <!-- 透過PNG画像のオーバーレイ -->
+            </div>
+</body>
+</html>
