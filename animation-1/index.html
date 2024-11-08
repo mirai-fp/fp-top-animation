@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Animation</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #FFFFFF;
+        }
+        canvas {
+            background-color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="waveCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('waveCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // canvas の幅
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const waves = [
+            { baseAmplitude: 20, frequency: 0.005, phase: 0, speed: 0.007, offsetY: canvas.height / 2 - 60 },
+            { baseAmplitude: 20, frequency: 0.001, phase: 0, speed: 0.001, offsetY: canvas.height / 2 - 30 },
+            { baseAmplitude: 20, frequency: 0.003, phase: 0, speed: 0.007, offsetY: canvas.height / 2 },
+            { baseAmplitude: 20, frequency: 0.005, phase: 0, speed: 0.007, offsetY: canvas.height / 2 + 30 },
+            { baseAmplitude: 30, frequency: 0.003, phase: 0, speed: 0.005, offsetY: canvas.height / 2 + 10 }, // 激しく動く波
+        ];
+
+        const image = new Image();
+        image.src = './image.png'; // ここに画像のURLを指定
+
+        image.onload = function() {
+            draw();
+        };
+
+        function getAmplitude(wave, x) {
+            return wave.baseAmplitude + 30 * Math.sin(x * 0.005);
+        }
+        
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 線を描く前に回転処理を追加
+            ctx.save(); // 現在の状態を保存
+            ctx.translate(canvas.width / 2, canvas.height / 2); // 回転の中心をキャンバスの中心に設定
+            ctx.rotate(Math.PI / -32); // 斜めに回転 (ここでは22.5度、Math.PI / 8)
+            ctx.translate(-canvas.width / 2, -canvas.height / 2); // 回転後に元の位置に戻す
+            
+            ctx.lineWidth = 2;
+
+            // グラデーションの作成（左から右に）
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+            gradient.addColorStop(1, 'rgba(235, 235, 235, 0.5)');
+            gradient.addColorStop(0.3, 'rgba(235, 235, 235, 0.5)');
+            gradient.addColorStop(0, 'rgba(100, 175, 175, 0.3)');   // 右端: シアン
+            ctx.strokeStyle = gradient;
+            
+            for (let wave of waves) {
+                ctx.beginPath();
+                for (let x = 0; x < canvas.width; x++) {
+                    const amplitude = getAmplitude(wave, x);
+                    const y = wave.offsetY + Math.sin(x * wave.frequency + wave.phase) * amplitude;
+                    if (x === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                ctx.stroke();
+                wave.phase += wave.speed;
+            }
+
+            ctx.restore(); // 回転を戻す
+            
+            // 画像をcanvasにオーバーレイとして描画
+            ctx.drawImage(image, 0, 0); // canvasの上に画像を描画
+
+            requestAnimationFrame(draw);
+        }
+        
+        draw();
+    </script>
+</body>
+</html>
