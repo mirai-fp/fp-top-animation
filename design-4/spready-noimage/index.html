@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ウェブデザインの画像表示</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            overflow: auto; /* ページ全体がスクロールできるように */
+        }
+        .image-container {
+            max-width: 100%;  /* 横幅に合わせて縮小 */
+        }
+        img {
+            width: 100%;     /* 画像の横幅を画面いっぱいに広げる */
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <img src="./image.png" alt="Illustratorで作成したウェブデザイン">
+    </div>
+</body>
+</html>
