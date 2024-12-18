@@ -34,3 +34,25 @@ document.addEventListener("DOMContentLoaded", () => {
         loading.classList.add("loaded");
     }, 3000);
 });
+
+// low power mode movie
+$(function () {
+  const videos = $('video.bg__animation[data-target]');
+
+  videos.each(function () {
+    const $video = $(this);
+    const videoElement = $video[0];
+    videoElement
+      .play()
+      .then(() => {
+        // 動画再生成功時
+        $video.show();
+        $video.siblings('.bg__img').hide();
+      })
+      .catch(() => {
+        // 動画再生失敗時（省電力モードまたは他の理由）
+        $video.hide();
+        $video.siblings('.bg__img').show();
+      });
+  });
+});

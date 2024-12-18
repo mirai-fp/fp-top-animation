@@ -186,6 +186,9 @@ h3 {
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 }
+.loading__fadeup {
+    animation-delay: 0;
+}
 @keyframes fadeup {
     0% {
         opacity: 0;
@@ -369,9 +372,18 @@ h3 {
 .bg__animation {
     height: 100%;
 }
+.bg__img {
+    display: none;
+    height: 100%;
+}
 @media (max-width: 840px) {
     .bg__animation {
         width: 160%;
+    }
+    .bg__img {
+        width: 180%;
+        height: auto;
+        object-fit: contain;
     }
 }
 
