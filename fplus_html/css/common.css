@@ -182,7 +182,7 @@ h3 {
     opacity:0;
     animation-name: fadeup;
     animation-duration: 1.5s; 
-    animation-delay: 4.5s;
+    animation-delay: 5.5s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 }
@@ -370,10 +370,11 @@ h3 {
     justify-content: center;
 }
 .bg__animation {
+    display: block;
     height: 100%;
 }
 .bg__img {
-    display: none;
+    display: block;
     height: 100%;
 }
 @media (max-width: 840px) {
@@ -480,7 +481,7 @@ h3 {
     border-right: .1rem solid var(--gray);
     border-bottom: .1rem solid  var(--gray);
     border-radius: 0 1.6rem 1.6rem 0;
-    animation-delay: 5s;
+    animation-delay: 6s;
 }
 .mv__news__date {
     height: 6.4rem;
@@ -525,7 +526,7 @@ h3 {
     right: -3.2rem;
     bottom: -3.2rem;
     overflow: hidden;
-    animation-delay: 5.5s;
+    animation-delay: 6.5s;
 }
 .spinner {
     position: absolute;
