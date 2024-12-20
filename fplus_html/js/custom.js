@@ -32,7 +32,7 @@ const loading = document.querySelector(".loading");
 document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
         loading.classList.add("loaded");
-    }, 3000);
+    }, 4000);
 });
 
 // low power mode movie
@@ -42,17 +42,19 @@ $(function () {
   videos.each(function () {
     const $video = $(this);
     const videoElement = $video[0];
+
+    // 動画再生の試行
     videoElement
       .play()
       .then(() => {
         // 動画再生成功時
-        $video.show();
-        $video.siblings('.bg__img').hide();
+        $video.css('display', 'block'); // 動画を表示
+        $video.siblings('.bg__img').css('display', 'none'); // 画像を非表示
       })
       .catch(() => {
-        // 動画再生失敗時（省電力モードまたは他の理由）
-        $video.hide();
-        $video.siblings('.bg__img').show();
+        // 動画再生失敗時（低電力モード等）
+        $video.css('display', 'none'); // 動画を非表示
+        $video.siblings('.bg__img').css('display', 'block'); // 画像を表示
       });
   });
 });
